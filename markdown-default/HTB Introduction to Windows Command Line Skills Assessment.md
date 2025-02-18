@@ -1,8 +1,8 @@
 _注1：每一个主机（除了第一个）的密码都是上一个主机的问题答案。_
 _注2：使用 powershell 的 cmdlet 命令需要输入 powershell 进入 powershell 命令行环境。_
 ## Question 1
- The flag will print in the banner upon successful login on the host via SSH.
- 通过SSH成功登录主机后，该 flag 将打印在 banner 中。
+The flag will print in the banner upon successful login on the host via SSH.
+通过SSH成功登录主机后，该 flag 将打印在 banner 中。
 
 ---
 
@@ -154,9 +154,9 @@ How many users exist on this host? (Excluding the DefaultAccount and WDAGUtility
 输出 **14** 即为 flag 。
 
 ## Question 7
- For this level, you need to find the Registered Owner of the host. The Owner name is the flag.
- 对于此级别，您需要找到主机的注册所有者。所有者名称就是 flag 。
- 
+For this level, you need to find the Registered Owner of the host. The Owner name is the flag.
+对于此级别，您需要找到主机的注册所有者。所有者名称就是 flag 。
+
 ---
 
 使用 systeminfo 命令查询 Registered Owner 即可
@@ -252,24 +252,24 @@ What user account on the Domain Controller has many Event ID (4625) logon failur
 首先需要先使用 user10 登录之前的 AD 域主机（172.16.5.155），使用 Get-WinEvent 命令查询 Security 日志中的 4625 事件，并且分组计数其中的登录失败目标账户的用户名。根据查询，返回的事件对象列表中的 Properties 参数的第 5 个为目标用户名。
 下列是根据 AI 给出的事件ID为 4625 的 Properties 结构：
 
-|索引|属性名|示例值|
-|---|---|---|
-|0|SubjectUserSid|S-1-5-18|
-|1|SubjectUserName|SYSTEM|
-|2|SubjectDomainName|NT AUTHORITY|
-|3|SubjectLogonId|0x3e7|
-|4|TargetUserSid|S-1-0-0|
-|5|**TargetUserName**|**[user10@greenhorn.corp](mailto:user10@greenhorn.corp)**|
-|6|TargetDomainName|-|
-|7|Status|0xc000006d|
-|8|FailureReason|%%2313|
-|9|SubStatus|0xc000006a|
-|10|LogonType|3|
-|11|LogonProcessName|NtLmSsp|
-|12|AuthenticationPackageName|NTLM|
-|13|WorkstationName|WORKSTATION1|
-|14|IpAddress|192.168.1.100|
-|15|IpPort|0|
+| 索引 | 属性名                       | 示例值                                                       |
+|----|---------------------------|-----------------------------------------------------------|
+| 0  | SubjectUserSid            | S-1-5-18                                                  |
+| 1  | SubjectUserName           | SYSTEM                                                    |
+| 2  | SubjectDomainName         | NT AUTHORITY                                              |
+| 3  | SubjectLogonId            | 0x3e7                                                     |
+| 4  | TargetUserSid             | S-1-0-0                                                   |
+| 5  | **TargetUserName**        | **[user10@greenhorn.corp](mailto:user10@greenhorn.corp)** |
+| 6  | TargetDomainName          | -                                                         |
+| 7  | Status                    | 0xc000006d                                                |
+| 8  | FailureReason             | %%2313                                                    |
+| 9  | SubStatus                 | 0xc000006a                                                |
+| 10 | LogonType                 | 3                                                         |
+| 11 | LogonProcessName          | NtLmSsp                                                   |
+| 12 | AuthenticationPackageName | NTLM                                                      |
+| 13 | WorkstationName           | WORKSTATION1                                              |
+| 14 | IpAddress                 | 192.168.1.100                                             |
+| 15 | IpPort                    | 0                                                         |
 
 ```powershell
 Get-WinEvent -FilterHashtable @{LogName='Security';Id=4625} | Group-Object {$_.Properties[5].value} | Select-Object Count,Name | Sort-Object Count -Descending
