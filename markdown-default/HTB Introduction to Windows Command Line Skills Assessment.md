@@ -1,5 +1,14 @@
+---
+title: IDEA在Maven项目中使用Lombok build失败
+date: 2025-02-18 18:10:00
+tags: 
+  - HTB
+  - Windows
+  - Powershell
+---
 _注1：每一个主机（除了第一个）的密码都是上一个主机的问题答案。_
 _注2：使用 powershell 的 cmdlet 命令需要输入 powershell 进入 powershell 命令行环境。_
+
 ## Question 1
 The flag will print in the banner upon successful login on the host via SSH.
 通过SSH成功登录主机后，该 flag 将打印在 banner 中。
